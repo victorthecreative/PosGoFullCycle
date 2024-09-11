@@ -4,7 +4,9 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/jwtauth"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"github.com/victorthecreative/PosGoFullCycle/API/configs"
+	_ "github.com/victorthecreative/PosGoFullCycle/API/docs"
 	"github.com/victorthecreative/PosGoFullCycle/API/internal/entity"
 	"github.com/victorthecreative/PosGoFullCycle/API/internal/infra/database"
 	"github.com/victorthecreative/PosGoFullCycle/API/internal/infra/webserver/handlers"
@@ -14,6 +16,23 @@ import (
 	"net/http"
 )
 
+// @title           Go Expert API Example
+// @version         1.0
+// @description     Product API with auhtentication
+// @termsOfService  http://swagger.io/terms/
+
+// @contact.name   Victor Coelho
+// @contact.url    http://www.fullcycle.com.br
+// @contact.email  atendimento@fullcycle.com.br
+
+// @license.name   Full Cycle License
+// @license.url    http://www.fullcycle.com.br
+
+// @host      localhost:8000
+// @BasePath  /
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	// Carrega as configurações
 	configs, err := configs.LoadConfig(".")
@@ -40,7 +59,6 @@ func main() {
 	// Configurar o roteador Chi
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
-
 	// Middleware para inserir valores de JWT e expiração no contexto
 	r.Use(middleware.WithValue("jwt", configs.TokenAuth))
 	r.Use(middleware.WithValue("jwtExpiresIn", configs.JWTExpiresIn)) // Corrigido para "jwtExpiresIn"
@@ -61,6 +79,8 @@ func main() {
 		r.Post("/", userHandler.CreateUser)
 		r.Post("/generate_token", userHandler.GetJWT)
 	})
+
+	r.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	// Iniciar o servidor na porta 8000
 	http.ListenAndServe(":8000", r)
