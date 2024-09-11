@@ -17,13 +17,13 @@ func TestNewProduct(t *testing.T) {
 func TestProductWhenNameIsRequired(t *testing.T) {
 	p, err := NewProduct("", 10.0)
 	assert.Nil(t, p)
-	assert.Equal(t, ErrNameIsRequerid, err)
+	assert.Equal(t, ErrNameIsRequired, err)
 }
 
 func TestProductWhenPriceIsRequired(t *testing.T) {
 	p, err := NewProduct("Product 1", 0)
 	assert.Nil(t, p)
-	assert.Equal(t, ErrPriceIsRequerid, err)
+	assert.Equal(t, ErrPriceIsRequired, err)
 }
 
 func TestProductWhenPriceIsInvalid(t *testing.T) {

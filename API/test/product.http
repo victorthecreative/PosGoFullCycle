@@ -1,0 +1,20 @@
+POST http://localhost:8000/products
+Content-Type: application/json
+
+{
+  "name": "Product Name",
+  "price": 100.50
+}
+
+###
+POST http://localhost:8000/users/generate_token
+Content-Type: application/json
+
+{
+  "email":"julia@gmail.com",
+  "password":"123456"
+}
+
+###
+GET http://localhost:8000/products HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjYwMTQ3OTF9.TTcHn-4xkarh3SukDT6nKW7XtsmU2jofOw0adydA3rk

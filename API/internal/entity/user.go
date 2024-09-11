@@ -1,12 +1,16 @@
 package entity
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"github.com/google/uuid"
+	"github.com/victorthecreative/PosGoFullCycle/API/pkg/entity"
+	"golang.org/x/crypto/bcrypt"
+)
 
 type User struct {
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"-"`
+	ID       uuid.UUID `json:"id"`
+	Name     string    `json:"name"`
+	Email    string    `json:"email"`
+	Password string    `json:"-"`
 }
 
 func NewUser(name, email, password string) (*User, error) {
@@ -15,7 +19,7 @@ func NewUser(name, email, password string) (*User, error) {
 		return nil, err
 	}
 	return &User{
-		ID:       "id",
+		ID:       entity.NewID(),
 		Name:     name,
 		Email:    email,
 		Password: string(hash),
