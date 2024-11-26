@@ -1,12 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 func main() {
+	wg := sync.WaitGroup{}
+	wg.Add(5)
 	ch := make(chan int)
 
 	go calIdade(ch)
-	reader(ch)
+	go reader(ch, &wg)
+
+	wg.Wait()
 }
 
 func calIdade(ch chan int) {
@@ -19,8 +26,10 @@ func calIdade(ch chan int) {
 	close(ch)
 }
 
-func reader(ch chan int) {
+func reader(ch chan int, wg *sync.WaitGroup) {
 	for x := range ch {
 		fmt.Printf("A idade é: %d\n", x)
+		wg.Done()
 	}
+
 }
