@@ -2,7 +2,7 @@ package events
 
 import "errors"
 
-var ErrHandlerAlreadyRegistered = errors.New("Handler already registered")
+var ErrHandlerAlreadyRegistered = errors.New("handler already registered")
 
 // EventDispatcher is responsible for managing event handlers and dispatching events to them.
 // It maintains a map where the keys are event names and the values are slices of EventHandlerInterface.
