@@ -7,8 +7,8 @@ import (
 
 func TestGetCEPInfo(t *testing.T) {
 	ch := make(chan interface{})
-	go GetCEPInfo(12345678, "viacep", ch)
-	go GetCEPInfo(12345678, "brasilapi", ch)
+	go GetCEPInfo(12345678, "viacep", ch, nil)
+	go GetCEPInfo(12345678, "brasilapi", ch, nil)
 
 	select {
 	case result := <-ch:

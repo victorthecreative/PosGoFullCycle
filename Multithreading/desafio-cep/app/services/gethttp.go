@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"sync"
 )
 
 const (
@@ -14,7 +15,7 @@ const (
 	brasilApiURL = "https://brasilapi.com.br/api/cep/v1/%d"
 )
 
-func GetCEPInfo(cep int64, servico string, ch chan interface{}) {
+func GetCEPInfo(cep int64, servico string, ch chan interface{}, wg *sync.WaitGroup) {
 
 	var viacep *domain.ViaCep
 	var brasilapi *domain.BrasilAPI
@@ -52,4 +53,5 @@ func GetCEPInfo(cep int64, servico string, ch chan interface{}) {
 		}
 		ch <- brasilapi
 	}
+	wg.Done()
 }
