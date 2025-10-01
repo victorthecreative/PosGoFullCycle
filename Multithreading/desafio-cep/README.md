@@ -21,5 +21,5 @@ go run main.go BuscarCEP cep_que_quer_testar
 
 4.1 exemplo:
 `bash
-       go run main.go BuscarCEP 1000100
+       go run main.go BuscarCEP 18133390
     `
